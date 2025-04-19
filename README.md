@@ -24,6 +24,15 @@
    cd op-food-shop
 ```
 
+**API Documentation**
+```
+Swagger:
+http://127.0.0.1:8000/swagger/
+
+Redoc:
+http://127.0.0.1:8000/redoc/
+```
+
 **Create a Virtual Environment:**
 
 ```
