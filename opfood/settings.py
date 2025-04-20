@@ -31,13 +31,15 @@ INSTALLED_APPS = [
     'django_filters',
     'order',
     'debug_toolbar',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-      "whitenoise.middleware.WhiteNoiseMiddleware",
-     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,7 +126,6 @@ cloudinary.config(
     secure=True
 )
 
-#Media Storage setting
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
