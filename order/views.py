@@ -10,6 +10,12 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
 class CartView(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet):
+    """
+    API endpoints for Product Cart 
+    - only admin can manage the Cart with all features
+    - Authenticated product buyer can cart product unauthenticate users not.
+    """   
+   
     serializer_class = ordersz.CartSerializer
     permission_classes = [IsAuthenticated]
 
@@ -23,6 +29,12 @@ class CartView(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericV
         return serializer.save(user = self.request.user)
     
 class CartItemView(ModelViewSet):
+    """
+    API endpoints for Product Cart items
+    - only admin can manage the Cartitems with all features
+    - Authenticated product buyer can see their cart items what they cart
+    """
+
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
@@ -39,6 +51,13 @@ class CartItemView(ModelViewSet):
         return CartItem.objects.select_related('product').filter(cart_id = self.kwargs.get('cart_pk'))
     
 class OrderView(ModelViewSet):
+    """
+    API endpoints for OrderView
+    - only admin can manage the Order with all features
+    - Authenticated product buyer can order product also they can add or remove
+    product from the order item and also they can cancel order before the item is delivered
+    """
+
     http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
 
     @action(detail=True, methods=['post'])

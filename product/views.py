@@ -45,6 +45,11 @@ class ProductViewset(ModelViewSet):
 
 
 class ProductImageViewset(ModelViewSet):
+    """
+    API endpoints for Image view 
+    - only admin can manage image.
+    - others user see image with product
+    """
     serializer_class = serializers.ProductImageSerializer
     permission_classes = [AdminOrReadOnly]
 
@@ -55,11 +60,22 @@ class ProductImageViewset(ModelViewSet):
         serializer.save(product_id= self.kwargs.get('product_pk'))  
 
 class CategoryViewset(ModelViewSet):
+    """
+    API endpoints for Product Category 
+    - only admin can manage the category with create, update, delete
+    - others user see the category wise product
+    """
     serializer_class = serializers.CategorySerializer
     queryset = models.Category.objects.annotate(product_count = Count('products')).all()
     permission_classes = [AdminOrReadOnly]
 
 class ReviewViewset(ModelViewSet):
+    """
+    API endpoints for Product Review 
+    - only admin can manage Review section with create, update, delete
+    - Authenticated user can review the product.
+    """
+
     serializer_class = serializers.ReviewSerializer
     permission_classes = [IsAuthenticated and AuthorOrReadOnly]
 
